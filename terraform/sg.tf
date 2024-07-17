@@ -4,7 +4,7 @@ module "security-group" {
   depends_on = [ module.vpc ]
   name        = "java-sg"
   vpc_id      = module.vpc.vpc_id
-  ingress_rules       = ["http-80-tcp","https-443-tcp"]
+  ingress_rules       = ["http-80-tcp","https-443-tcp","http-8080-tcp"]
   ingress_cidr_blocks = ["0.0.0.0/0"]
   ingress_with_cidr_blocks = [
     {
