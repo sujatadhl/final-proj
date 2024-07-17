@@ -17,3 +17,25 @@ module "autoscaling_alarm" {
     module.sns_topic.topic_arn
   ]
 }
+
+module "alb_healthcheck"{
+  source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarm"
+  version = "~> 3.0"
+
+  alarm_name          = "status-code-alarm"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = 2
+  metric_name         = "HTTPCode_Target_5XX_Count"
+  namespace           = "AWS/ApplicationELB"
+  period              = 300 
+  statistic           = "Sum"
+  threshold           = 10   
+  alarm_description   = "Alarm when 5XX error count on target group exceeds 10 over 5 minutes"
+
+  dimensions = {
+    TargetGroup  = module.alb.target_groups
+  }
+
+  alarm_actions = module.sns_topic.topic_arn 
+}
+}
