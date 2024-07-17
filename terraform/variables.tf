@@ -201,17 +201,3 @@ variable "cloudwatch_logs" {
   type = string  
 }
 
-variable "route53_domain" {
-  type = string
-  description = "route 53 domain name"
-}
-
-variable "route53_subdomain" {
-  type = string
-  description = "route 53 sub domain name"
-}
-
-variable "route53_type" {
-  type = string
-  description = "route 53 type"
-}
