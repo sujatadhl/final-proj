@@ -30,7 +30,7 @@ jobs:
             terraform init
 
         - name: Terraform plan
-           run: |
+          run: |
             cd terraform
             terraform plan -var-file=var.tfvars
 
