@@ -33,7 +33,7 @@ module "alb_healthcheck"{
   alarm_description   = "Alarm when 5XX error count on target group exceeds 10 over 5 minutes"
 
   dimensions = {
-    TargetGroup  = module.alb.aws_lb_target_group
+    targetGroup  = module.alb.aws_lb_target_group.name
   }
 
   alarm_actions = module.sns_topic.topic_arn 
