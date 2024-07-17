@@ -38,4 +38,3 @@ module "alb_healthcheck"{
 
   alarm_actions = module.sns_topic.topic_arn 
 }
-}
