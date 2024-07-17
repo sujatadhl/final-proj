@@ -36,5 +36,5 @@ module "alb_healthcheck"{
     TargetGroup  = module.alb.target_group_arns[0]
   }
 
-  alarm_actions = module.sns_topic.topic_arn 
+  alarm_actions = [module.sns_topic.topic_arn ]
 }
