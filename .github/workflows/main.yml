@@ -1,0 +1,32 @@
+name: Final-proj
+on:
+    push:
+      branches:
+        - INTERN-780
+    pull_request:
+      branches:
+        - main
+
+env:
+    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}  
+    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  
+    AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }} 
+    AWS_DEFAULT_REGION: us-east-1
+
+jobs:  
+    create-resources:
+      runs-on: ubuntu-latest
+        
+      steps:
+        - name: Checkout 
+          uses: actions/checkout@v3
+            
+        - name: Install Terraform
+          uses: hashicorp/setup-terraform@v1
+          
+        - name: Terraform commands
+          run: |
+            cd terraform
+            terraform init
+            terraform plan  -var-file="var.tfvars"   
+            terraform apply -var-file="var.tfvars" -auto-approve      
