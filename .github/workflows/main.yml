@@ -32,9 +32,9 @@ jobs:
         - name: Terraform plan
            run: |
             cd terraform
-            terraform plan -var-file="var.tfvars" 
+            terraform plan -var-file=var.tfvars
 
         - name: Terraform apply 
           run: |
             cd terraform
-            terraform apply -var-file="var.tfvars" -auto-approve    
+            terraform apply -var-file=var.tfvars -auto-approve    
