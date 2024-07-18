@@ -28,6 +28,8 @@ module "asg" {
   image_id          = var.image_id
   instance_type     = var.instance_type
   enable_monitoring = var.monitoring
+  launch_template_version = "$Default"
+  update_default_version = true
 
   initial_lifecycle_hooks = [
     {
@@ -50,18 +52,19 @@ module "asg" {
 
   user_data = base64encode(<<-EOF
   #!/bin/bash
-  sudo apt-get update
-  sudo apt-get install -y awscli
-  sudo apt-get install -y amazon-ssm-agent
-  sudo apt-get install -y awslogs
-  sudo systemctl start awslogs
-  sudo chkconfig awslogs on
-  sudo apt-get install -y ruby-full
-  sudo apt-get install -y wget
+  apt-get update
+  apt-get install -y awscli
+  apt-get install -y amazon-ssm-agent
+  apt-get install -y awslogs
+  systemctl start awslogs
+  chkconfig awslogs on
+  apt-get install -y ruby-full
+  apt-get install -y wget
+  apt install -y default-jdk
   cd /home/ubuntu
   wget https://aws-codedeploy-${var.region}.s3.${var.region}.amazonaws.com/latest/install
-  sudo chmod +x ./install
-  sudo ./install auto > /tmp/logfile
+  chmod +x ./install
+  ./install auto > /tmp/logfile
     EOF
   )
 }
